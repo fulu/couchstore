@@ -70,9 +70,9 @@ static couchfile_modify_result *make_modres(arena* a, couchfile_modify_request *
     return res;
 }
 
-/* with chunk threshold */
 couchfile_modify_result *new_btree_modres(arena *a, arena *transient_arena, tree_file *file,
-                                          compare_info* cmp, reduce_fn reduce, reduce_fn rereduce, int chunk_threshold)
+                                          compare_info* cmp, reduce_fn reduce, reduce_fn rereduce,
+                                          int chunk_threshold)
 {
     couchfile_modify_request* rq = arena_alloc(a, sizeof(couchfile_modify_request));
     rq->cmp = *cmp;

@@ -8,6 +8,8 @@
 extern "C" {
 #endif
 
+#define DB_CHUNK_THRESHOLD 1279
+
     typedef int (*compare_callback)(const sized_buf *k1, const sized_buf *k2);
 
     typedef struct compare_info {
@@ -78,6 +80,7 @@ extern "C" {
         reduce_fn rereduce;
         /*  We're in the compactor */
         int compacting;
+        int chunk_threshold;
     } couchfile_modify_request;
 
 #define KP_NODE 0
@@ -113,6 +116,10 @@ extern "C" {
     couchfile_modify_result* new_btree_modres(arena* a, arena* transient_arena, tree_file *file,
                                               compare_info* cmp, reduce_fn reduce,
                                               reduce_fn rereduce);
+
+    couchfile_modify_result* new_btree_modres_with_chkthld(arena* a, arena* transient_arena, tree_file *file,
+                                              compare_info* cmp, reduce_fn reduce,
+                                              reduce_fn rereduce, int chunk_threshold);
 
     node_pointer* complete_new_btree(couchfile_modify_result* mr, couchstore_error_t *errcode);
 
